@@ -31,7 +31,7 @@ if (!$user) {
         $pwd   = mysql_real_escape_string($_POST['pwd']);
 
         // connexion
-        $sql = 'SELECT nom, email, pseudo, actif FROM user WHERE email=\'' . $login . '\' AND pwd=\'' . $pwd . '\' AND actif=\'oui\'';
+        $sql = 'SELECT nom, email, actif FROM user WHERE email=\'' . $login . '\' AND pwd=\'' . $pwd . '\' AND actif=\'oui\'';
         $userRow = $db->getRow($sql);
         if (!is_null($userRow)) {
 

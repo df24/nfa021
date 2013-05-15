@@ -1,14 +1,9 @@
 <?php
-include ('classes/User.php');
-
-/*
- * environnement de développement
- */
-if (getenv('APPLICATION_ENV') == 'devubuntu' || getenv('APPLICATION_ENV') == 'development') {
-    ini_set('display_errors', 'on');
-    include_once('Zend/Debug.php');
-}
-
+include_once('classes/Db.php');
+include_once('classes/User.php');
+include_once('classes/Actu.php');
+include_once('classes/ActuCollection.php');
+$db = new Db();
 /*
  * analyse session php
  */
@@ -34,7 +29,8 @@ if (isset($_SESSION['user'])) {
             if ($user instanceof User) {
                 echo $user->getName() . ' - <a href="backoffice/back_actu_list.php">admin</a>';
             } else {
-                echo '<a href="inscription.php">inscription</a> - <a href="backoffice/login.php">connexion</a>';
+                echo '<div id="logo">PUBLIEZ VOS ACTUS</div>';
+                echo '<div id="links"><a href="inscription.php">inscription</a> - <a href="backoffice/login.php">connexion</a></div>';
             }
         ?>
     </header>

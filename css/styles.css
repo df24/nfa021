@@ -1,3 +1,5 @@
+/* Denis Fohl - NFA021 */
+/* reset css */
 body {
 
     padding: 0;
@@ -9,14 +11,11 @@ body {
     color: #666;
 
 }
-
-header, section, nav, footer, aside, div {
+header, footer, section, aside, nav {
     padding: 10px;
 }
-header {
-    box-shadow: 0 4px 4px #aaa;
-}
 
+/* définitions des styles */
 a {
     color: darkorange;
     text-decoration: none;
@@ -29,7 +28,34 @@ a:hover, a:active, a:focus {
 header {
     font-size: 0.7em;
     background-color: #ddd;
-    text-align: right;
+    box-shadow: 0 4px 4px #aaa;
+    height:30px;
+}
+header div {
+}
+#logo {
+    float:left;
+    font-size: 2em;
+    font-weight: bold;
+    color:#71b146;
+}
+#links {
+    float:right;
+}
+
+section, aside {
+    display: inline-block;
+    vertical-align: middle;
+}
+aside {
+    text-align: center;
+    padding-left: 50px;
+}
+aside #cadre {
+    border-left: 2px solid #999999;
+}
+aside ol {
+    text-align: left;
 }
 
 footer {
@@ -55,4 +81,28 @@ label {
     margin-bottom: 10px;
     min-width:170px;
     font-style: italic;
+}
+
+#actuListe {
+    display: table;
+    border-spacing: 10px 0;
+}
+.actu {
+    display: table-cell;
+    width: 250px;
+    border: 1px solid #999999;
+    border-radius: 4px 4px 4px 4px;
+    color: #333;
+    padding: 5px 15px;
+}
+
+.bouton {
+    background-image: -moz-linear-gradient(center top , #8FC000, #6CA300 100%);
+    background-size: 100% auto;
+    border: 1px solid #999999;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.3) inset;
+    color: white;
+    padding: 5px 15px;
+    cursor: pointer;
 }
