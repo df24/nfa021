@@ -34,4 +34,3 @@ if (isset($_SESSION['user'])) {
             }
         ?>
     </header>
-    <div id="main">

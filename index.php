@@ -17,8 +17,7 @@ $actuCollection = ActuCollection::get($db, $params);
 if(count($actuCollection) == 0) {
     echo 'Pas d\'actualités pour le moment.';
 } else {
-    echo '<p class="bouton">Dernières actualités</p>';
-    echo '<div id="actuListe">';
+    echo '<p class="sectionTitre">Dernières actualités</p>';
     foreach ($actuCollection as $actu) {
         echo '<article class="actu">';
         echo '<p class="actuTitre">' . $actu->getTitre() . '</p>';
@@ -28,7 +27,6 @@ if(count($actuCollection) == 0) {
         echo '<p class="actuInfos">le ' . $actu->getDateCreation()->format('d/m/Y') . ' par ' . $actu->getUser($db)->getNom() . '</p>';
         echo '</article>';
     }
-    echo '</div>';
 }
 
 echo '</section>';

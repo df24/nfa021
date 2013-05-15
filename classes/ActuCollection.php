@@ -13,9 +13,10 @@ class ActuCollection
 
         $sql = 'SELECT a.* FROM actu as a, user as u';
 
+        $where = array();
+        $where[] = 'a.iduser = u.iduser AND u.actif = \'oui\'';
+
         if (is_array($params)) {
-            $where = array();
-            $where[] = 'a.iduser = u.iduser AND u.actif = \'oui\'';
             if (array_key_exists('iduser', $params)) {
                     $where[] = 'a.iduser = ' . (int) $params['iduser'];
             }
@@ -25,10 +26,9 @@ class ActuCollection
             if (array_key_exists('dateConsultation', $params)) {
                     $where[] = 'a.datePublicationDebut <= \'' . $params['dateConsultation'] . '\' AND a.datePublicationFin >= \'' . $params['dateConsultation']  . '\' AND a.etat=\'valid\'';
             }
-            if (count($where) != 0) {
-                $sql .= ' WHERE ' . implode(' AND ', $where);
-            }
         }
+
+        $sql .= ' WHERE ' . implode(' AND ', $where);
 
         if (is_array($order)) {
             $sql .= ' ORDER BY ' . implode(', ', $order);
