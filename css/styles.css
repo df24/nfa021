@@ -32,9 +32,8 @@ header {
     height:30px;
     padding: 10px 40px 10px 20px;
 }
-header div {
-}
-#logo {
+
+#logo a {
     float:left;
     font-size: 2em;
     font-weight: bold;
@@ -50,17 +49,18 @@ section, aside {
     vertical-align: middle;
 }
 
-section {
-max-width: 760px;
+.center {
+    width:80%;
+    margin:auto;
 }
-
+section {
+    max-width: 760px;
+}
 aside {
     text-align: center;
-    padding-left: 50px;
+    color: #aaa;
 }
-aside #cadre {
-    border-left: 2px solid #999999;
-}
+
 aside ol {
     text-align: left;
 }
@@ -76,10 +76,6 @@ footer {
     font-weight: bold;
     width:300px;
     margin:auto;
-}
-
-#main {
-    padding: 15px;
 }
 
 label {
@@ -101,6 +97,20 @@ label {
     padding: 0 10px;
     margin: 13px;
     background-color: #fef8e2;
+    font-size: 0.8em;
+}
+
+.actuInfos, .actuLink {
+    font-style: italic;
+    font-size: 0.7em;
+}
+.actuLink {
+    text-align: right;
+}
+
+.user {
+    color: darkorange;
+    font-weight: bold;
 }
 
 .bouton {

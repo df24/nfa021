@@ -38,11 +38,13 @@ class User
      */
     protected $news;
 
-    public function __construct(array $values = array())
+    public function __construct($params = null)
     {
-        foreach ($values as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            $this->$method($value);
+        if (is_array($params)) {
+            foreach ($params as $key => $value) {
+                $method = 'set' . ucfirst($key);
+                $this->$method($value);
+            }
         }
     }
 
