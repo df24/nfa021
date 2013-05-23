@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.11.1deb1
+-- version 3.5.8.1deb1
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 15 Mai 2013 à 11:26
--- Version du serveur: 5.5.31
--- Version de PHP: 5.4.6-1ubuntu1.2
+-- Généré le: Mar 21 Mai 2013 à 11:49
+-- Version du serveur: 5.5.31-0ubuntu0.13.04.1
+-- Version de PHP: 5.4.9-4ubuntu2
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -29,7 +29,6 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `actu` (
   `idactu` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `titre` varchar(255) NOT NULL,
-  `accroche` varchar(500) DEFAULT NULL,
   `contenu` text,
   `datePublicationDebut` date DEFAULT NULL,
   `datePublicationFin` date DEFAULT NULL,
@@ -42,15 +41,18 @@ CREATE TABLE IF NOT EXISTS `actu` (
   PRIMARY KEY (`idactu`),
   KEY `fk_actu_actuRubrique_idx` (`idactuRubrique`),
   KEY `fk_actu_user1_idx` (`iduser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Contenu de la table `actu`
 --
 
-INSERT INTO `actu` (`idactu`, `titre`, `accroche`, `contenu`, `datePublicationDebut`, `datePublicationFin`, `dateCreation`, `ordre`, `etat`, `visibilite`, `idactuRubrique`, `iduser`) VALUES
-(2, 'titre test actu user 1', NULL, NULL, NULL, NULL, '2013-05-14 00:00:00', NULL, NULL, NULL, 1, 1),
-(3, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', NULL, NULL, NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 1);
+INSERT INTO `actu` (`idactu`, `titre`, `contenu`, `datePublicationDebut`, `datePublicationFin`, `dateCreation`, `ordre`, `etat`, `visibilite`, `idactuRubrique`, `iduser`) VALUES
+(1, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', 'essai de contenu nu nu', NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 1),
+(2, 'titre test actu user 1', NULL, NULL, NULL, '2013-05-14 00:00:00', NULL, NULL, NULL, 1, 1),
+(4, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', NULL, NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 2),
+(5, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', NULL, NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 3),
+(6, 'titre test actu user 1', NULL, NULL, NULL, '2013-05-10 00:00:00', NULL, NULL, NULL, 1, 3);
 
 -- --------------------------------------------------------
 
@@ -86,14 +88,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `pwd` varchar(8) NOT NULL,
   `actif` enum('non','oui') NOT NULL,
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`iduser`, `nom`, `email`, `pwd`, `actif`) VALUES
-(1, 'jfk', 'jfk@toto.com', 'jfk', 'oui');
+(1, 'jfk', 'jfk@toto.com', 'jfk', 'oui'),
+(2, 'toto', 'toto@toto.com', 'toto', 'non'),
+(3, 'titi', 'titi@toto.com', 'titi', 'oui');
 
 --
 -- Contraintes pour les tables exportées
