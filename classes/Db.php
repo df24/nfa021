@@ -16,9 +16,17 @@ class Db
 
     }
 
+    public function query($sql)
+    {
+        if(!mysqli_query($this->link, $sql))
+            return array($this->getLink()->errno => $this->getLink()->error);
+        else
+            return true;
+    }
+
     public function getRow($sql)
     {
-        
+
         $rs = mysqli_query($this->link, $sql);
 
         if ($rs === false)
@@ -43,6 +51,11 @@ class Db
 
         return $result;
 
+    }
+
+    public function getLink()
+    {
+        return $this->link;
     }
 
 }

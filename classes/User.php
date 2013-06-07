@@ -56,6 +56,42 @@ class User
 
     }
 
+    public function sendConfirmationEmail()
+    {
+
+    }
+
+    public function save($db)
+    {
+
+        $data = array(
+            'nom'   => $this->getNom(),
+            'email' => $this->getEmail(),
+            'pwd'   => $this->getPwd(),
+            'actif' => $this->getActif()
+        );
+        if (!is_null($this->getIduser())) {
+            $data['iduser'] = $this->getIduser();
+        }
+        $dataString = implode('\',\'', $data);
+
+        if (array_key_exists('iduser', $data)) {
+
+            $sql = 'UPDATE user SET ';
+            foreach ($data as $key => $val)
+                $sql .= $key . " = '$val' ";
+            $sql .= ' WHERE iduser=' . (int) $data['iduser'];
+            return $db->query($sql);
+
+        } else {
+
+            $sql = 'INSERT INTO user (nom, email, pwd, actif) VALUES (\'' . $dataString . '\')';
+            return $db->query($sql);
+
+        }
+
+    }
+
     /*******************************************************************************************************************
      * getters et setters
      */
@@ -111,6 +147,8 @@ class User
 
     public function getActif()
     {
+        if (is_null($this->actif))
+            $this->actif = 'non';
         return $this->actif;
     }
 

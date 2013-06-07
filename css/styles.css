@@ -31,6 +31,7 @@ header {
     box-shadow: 0 4px 4px #aaa;
     height:30px;
     padding: 10px 40px 10px 20px;
+    margin-bottom: 20px;
 }
 
 #logo a {
@@ -67,6 +68,7 @@ aside ol {
 
 footer {
     display:block;
+    margin-top: 70px;
     background-color: #999;
     height:100%;
 }
@@ -76,14 +78,6 @@ footer {
     font-weight: bold;
     width:300px;
     margin:auto;
-}
-
-label {
-    display: inline-block;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    min-width:170px;
-    font-style: italic;
 }
 
 .actu {

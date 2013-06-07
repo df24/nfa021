@@ -20,6 +20,7 @@ if (isset($_SESSION['user'])) {
 <head>
   <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" media="all" href="css/styles.css" />
+  <link rel="stylesheet" media="all" href="css/form.css" />
   <link href="http://fonts.googleapis.com/css?family=Open+Sans" media="all" rel="stylesheet" type="text/css" >
   <meta charset="UTF-8">
   <title>Publiez vos actus !</title>
@@ -42,7 +43,7 @@ if (isset($_SESSION['user'])) {
                 echo $user->getName() . ' - <a href="backoffice/back_actu_list.php">admin</a>';
             } else {
                 echo '<div id="logo"><a href="/">PUBLIEZ VOS ACTUS</a></div>';
-                echo '<div id="links"><a href="inscription.php">inscription</a> - <a href="backoffice/login.php">connexion</a></div>';
+                echo '<div id="links"><a href="signin.php">inscription</a> - <a href="backoffice/login.php">connexion</a></div>';
             }
         ?>
         </div>
