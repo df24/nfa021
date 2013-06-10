@@ -31,6 +31,10 @@ class User
      * @var string
      */
     protected $pseudo;
+    /**
+     *
+     * @var oui | non
+     */
     protected $actif;
     /**
      *
@@ -51,16 +55,53 @@ class User
     /*******************************************************************************************************************
      * méthodes métier
      */
-    public function getNews(array $filters = array())
-    {
-
-    }
-
+    /**
+     * Utilisation du package classe Zend_Mail pour pouvoir utiliser un serveur smtp externe car j'ai désactivé
+     * la fonction mail sur mon serveur d'hébergement (je n'ai pas installé de serveur smtp dessus)
+     *
+     * @return boolean
+     */
     public function sendConfirmationEmail()
     {
 
+        include_once('Zend/Exception.php');
+        include_once('Zend/Mime.php');
+        include_once('Zend/Mail.php');
+        include_once('Zend/Mail/Transport/Smtp.php');
+
+        $tr = new Zend_Mail_Transport_Smtp('smtp.df-info.com', array(
+            'username' => 'smtp@df-info.com',
+            'password' => 'pwdbidon24',
+            'auth' => 'login'
+        ));
+        Zend_Mail::setDefaultTransport($tr);
+
+        $mail = new Zend_Mail();
+        $url = 'http://' . $_SERVER['SERVER_NAME'] . '/confirm.php?idUser=' . $this->getIduser();
+        $mail->setBodyText("Cliquez sur le lien suivant pour valider votre inscription : $url");
+        $mail->setFrom('denis.fohl@laposte.net', 'NFA021 - Denis Fohl');
+        $mail->addTo($this->getEmail());
+        $mail->setSubject('Confirmez votre inscription à PUBLIEZ VOS ACTUS !!!');
+
+        try {
+            $mail->send($tr);
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+
     }
 
+    /**
+     * Sauvegarde l'objet en base
+     * Si il existe un id dans l'objet c'est qu'il y a déjà un enregistrement correpondant base => UPDATE
+     * sinon => INSERT
+     *
+     * Si INSERT, on renvoie l'id de l'enregistrement créé en base de données, tableau avec code erreur / message sinon
+     *
+     * @param Db $db
+     * @return interger | array error
+     */
     public function save($db)
     {
 
@@ -86,7 +127,13 @@ class User
         } else {
 
             $sql = 'INSERT INTO user (nom, email, pwd, actif) VALUES (\'' . $dataString . '\')';
-            return $db->query($sql);
+
+            $result = $db->query($sql);
+
+            if($result === true)
+                return mysqli_insert_id($db->getLink());
+            else
+                return array($db->getLink()->errno => $db->getLink()->error);
 
         }
 

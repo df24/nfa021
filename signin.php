@@ -59,9 +59,14 @@ if ($user instanceof User) {
                 else
                     echo '<p class="error">ERREUR MYSQL CODE(S) : ' . implode(', ', array_keys ($result)) . '</p>';
             } else {
-                $user->sendConfirmationEmail();
-                echo '<p>Votre inscription a bien été prise en compte.</p><p>Afin d\'accéder à nos services, vous devez valider cette inscription en cliquant sur le lien qui vous a été envoyé à : '
-                . $data['email'] . '.</p><p>Vous pourrez ensuite publier vos actus en cliquant sur "connexion".</p><p>Merci</p>';
+                $user->setIduser($result);
+                $send = $user->sendConfirmationEmail();
+                if ($send === true) {
+                    echo '<p>Votre inscription a bien été prise en compte.</p><p>Afin d\'accéder à nos services, vous devez valider cette inscription en cliquant sur le lien qui vous a été envoyé à : '
+                    . $data['email'] . '.</p><p>Vous pourrez ensuite publier vos actus en cliquant sur "connexion".</p><p>Merci</p>';
+                } else {
+                    echo '<p class="errro">' . $send . '</p>';
+                }
             }
         }
 
