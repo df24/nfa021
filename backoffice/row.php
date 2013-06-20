@@ -27,6 +27,8 @@ echo '<section>';
 //exit;
             $row->save($db);
 
+            LogCollection::write($db, $user, $form->getType() . ' ' . $class);
+
             header('Location: list.php?class=' . $class);
             exit;
 

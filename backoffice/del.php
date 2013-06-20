@@ -9,6 +9,7 @@ if (!is_null($id)) {
     $className = $class . 'Collection';
     include_once($path . 'classes/' . $className . '.php');
     $className::del($db, $id);
+    LogCollection::write($db, $user, 'suppression ' . $class);
 
 }
 

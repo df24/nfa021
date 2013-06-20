@@ -26,7 +26,7 @@ class ActuCollection
                     $where[] = 'a.idactuRubrique = ' . (int) $params['idactuRubrique'];
             }
             if (array_key_exists('dateConsultation', $params)) {
-                    $where[] = 'a.datePublicationDebut <= \'' . $params['dateConsultation'] . '\' AND a.datePublicationFin >= \'' . $params['dateConsultation']  . '\' AND a.etat=\'valid\'';
+                    $where[] = 'a.datePublicationDebut <= \'' . $params['dateConsultation']->format('Y-m-d') . '\' AND a.datePublicationFin >= \'' . $params['dateConsultation']->format('Y-m-d')  . '\' AND a.etat=\'valid\'';
             }
             if (array_key_exists('etat', $params)) {
                     $etat = $params['etat'];
@@ -39,7 +39,7 @@ class ActuCollection
         if (is_array($order)) {
             $sql .= ' ORDER BY ' . implode(', ', $order);
         } else {
-            $sql .= ' ORDER BY a.dateCreation DESC';
+            $sql .= ' ORDER BY a.ordre, a.dateCreation DESC';
         }
 //var_dump($sql);
         $rs = $db->getRowset($sql);

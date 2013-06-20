@@ -28,19 +28,9 @@ class User
     protected $pwd;
     /**
      *
-     * @var string
-     */
-    protected $pseudo;
-    /**
-     *
      * @var oui | non
      */
     protected $actif;
-    /**
-     *
-     * @var News[]
-     */
-    protected $news;
 
     public function __construct($params = null)
     {
@@ -119,9 +109,14 @@ class User
         if (array_key_exists('iduser', $data)) {
 
             $sql = 'UPDATE user SET ';
-            foreach ($data as $key => $val)
-                $sql .= $key . " = '$val' ";
+            $values = array();
+            foreach ($data as $key => $val) {
+                if(!is_null($val) && $val != '')
+                    $values[] = $key . " = '$val' ";
+            }
+            $sql .= implode(', ', $values);
             $sql .= ' WHERE iduser=' . (int) $data['iduser'];
+
             return $db->query($sql);
 
         } else {
@@ -136,6 +131,20 @@ class User
                 return array($db->getLink()->errno => $db->getLink()->error);
 
         }
+
+    }
+
+    public function toHtmlTd(Db $db)
+    {
+
+        if ($this->getActif() == 'oui')
+            $toChange = 'non';
+        else
+            $toChange = 'oui';
+
+        return '<td>' . $this->getNom() . '</td>'
+             . '<td>' . $this->getEmail() . '</td>'
+             . '<td><a href="activate.php?actif=' . $toChange . '&iduser=' . $this->getIduser() . '">' . $this->getActif() . '</a></td>';
 
     }
 
@@ -180,16 +189,6 @@ class User
     public function setPwd($pwd)
     {
         $this->pwd = $pwd;
-    }
-
-    public function getPseudo()
-    {
-        return $this->pseudo;
-    }
-
-    public function setPseudo($pseudo)
-    {
-        $this->pseudo = $pseudo;
     }
 
     public function getActif()

@@ -1,6 +1,15 @@
 <style>
+    .titre {
+        font-size:0.9em;
+        font-style: italic;
+    }
     td, th {
         font-size: 0.8em;
+        vertical-align: top;
+        padding:10px;
+    }
+    th {
+        background-color: #f1fec5;
     }
 </style>
 <?php

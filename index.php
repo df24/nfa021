@@ -10,17 +10,19 @@ $params = null;
 $publisher = null;
 if (array_key_exists('iduser', $_GET)) {
     // le transtypage en int protège contre les injections de string
-    $params['iduser'] = (int) substr($_GET['iduser'], 1);
+    $params['iduser'] = (int) $_GET['iduser'];
     $sql = 'SELECT * FROM user WHERE iduser=' . $params['iduser'];
     $userRow = $db->getRow($sql);
     if (!is_null($userRow)) {
         $publisher = new User($userRow);
     }
 }
-/*
- * récupération des actus, filtre sur l'utilisateur si iduser dans la requête
- */
+
+
 $params['etat'] = 'valid';
+$params['dateConsultation'] = new DateTime();
+if (array_key_exists('idActuRubrique', $_GET))
+    $params['idactuRubrique'] = (int) $_GET['idActuRubrique'];
 $actuCollection = ActuCollection::get($db, $params);
 
 if(count($actuCollection) == 0) {
@@ -33,7 +35,8 @@ if(count($actuCollection) == 0) {
     echo '</p>';
     foreach ($actuCollection as $actu) {
         echo '<article class="actu">';
-        echo '<p class="actuInfos">le ' . $actu->getDateCreation()->format('d/m/Y') . ' par <a href="' . $actu->getIduser() . '">' . $actu->getUser($db)->getNom() . '</a></p>';
+        echo '<p class="actuInfos">le ' . $actu->getDateCreation()->format('d/m/Y') . ' par <a href="index.php?iduser=' . $actu->getIduser() . '">' . $actu->getUser($db)->getNom() . '</a></p>';
+        echo '<p class="actuInfos">rubrique <a href="index.php?idActuRubrique=' . $actu->getRubrique($db)->getId() . '">' . $actu->getRubrique($db)->getLibelle() . '</a></p>';
         echo '<p class="actuTitre">' . Util::crop($actu->getTitre(), 120) . '</p>';
         if (!is_null($actu->getContenu())) {
             echo '<p class="actuLink"><a class="fancybox" href="/actuDetail.php?idactu=' . $actu->getIdactu() . '">en savoir plus</a>';

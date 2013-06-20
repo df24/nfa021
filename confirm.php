@@ -11,6 +11,10 @@ $idUser = (int) $_GET['idUser'];
 $sql = "UPDATE user SET actif='oui' WHERE iduser=" . $idUser;
 $result = $db->query($sql);
 
+$id = mysqli_insert_id($db->getLink());
+$sql = "INSERT (libelle, iduser) INTO actuRubrique VALUES('mes actus', '$id')";
+$result = $db->query($sql);
+
 if (!is_array($result))
     header("Location: backoffice/login.php");
 else {

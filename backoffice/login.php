@@ -17,12 +17,19 @@ if (!$user instanceof User) {
         $sql = 'SELECT iduser, nom, email, actif FROM user WHERE email=\'' . $login . '\' AND pwd=\'' . $pwd . '\' AND actif=\'oui\'';
         $userRow = $db->getRow($sql);
         if (!is_null($userRow)) {
-            
+
             $user = new User($userRow);
             $_SESSION['user'] = $user;
 
-            header('Location: /');
-            exit;
+            LogCollection::write($db, $user, 'login');
+
+            if ($user->getEmail() == 'admin@df-info.com') {
+                header('Location: list.php?class=log');
+                exit;
+            } else {
+                header('Location: /');
+                exit;
+            }
 
         } else {
             echo '<p>Authentification échouée ou compte désactivé</p>';
@@ -33,7 +40,7 @@ if (!$user instanceof User) {
         echo <<<HTML
         <p>Connectez-vous pour publier vos actus :</p>
         <form method="POST" id="login">
-            <label for="login">Nom d'utilisateur</label>
+            <label for="login">Adresse email</label>
             <input name="login" type="text">
         <br>
             <label for="pwd">Mot de passe</label>

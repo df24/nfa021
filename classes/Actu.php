@@ -272,7 +272,7 @@ class Actu
     {
         // lazy loading de l'objet user dans l'objet actu
         if ($this->rubrique == 'toLoad') {
-            $sql = 'SELECT libelle FROM actuRubrique WHERE idactuRubrique =' . $this->getIdactuRubrique();
+            $sql = 'SELECT * FROM actuRubrique WHERE idactuRubrique =' . $this->getIdactuRubrique();
             $row = $db->getRow($sql);
             $this->rubrique = new ActuRubrique($row);
         }

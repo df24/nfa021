@@ -50,7 +50,7 @@ class Commentaire
             $date = $this->getDate()->format('d/m/Y');
 
         return '<td>' . $date . '</td>'
-             . '<td>' . Util::crop($this->getCommentaire(), 140) . '</td>'
+             . '<td style="width:600px;">' . $this->getCommentaire() . '</td>'
              . '<td>' . $this->getUser($db)->getNom() . '</td>';
 
     }

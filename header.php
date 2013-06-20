@@ -5,12 +5,15 @@ if (!isset($path))
 include_once($path . 'classes/Util.php');
 include_once($path . 'classes/Db.php');
 include_once($path . 'classes/User.php');
+include_once($path . 'classes/UserCollection.php');
 include_once($path . 'classes/Actu.php');
 include_once($path . 'classes/ActuCollection.php');
 include_once($path . 'classes/ActuRubrique.php');
 include_once($path . 'classes/ActuRubriqueCollection.php');
 include_once($path . 'classes/Commentaire.php');
 include_once($path . 'classes/CommentaireCollection.php');
+include_once($path . 'classes/Log.php');
+include_once($path . 'classes/LogCollection.php');
 $db = new Db();
 /*
  * analyse session php
@@ -18,6 +21,10 @@ $db = new Db();
 session_start();
 if (isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
+    if ($user->getEmail() == 'admin@df-info.com')
+        $defaultClass = 'Log';
+    else
+        $defaultClass = 'Actu';
 } else {
     $user = false;
 }
@@ -59,7 +66,7 @@ if (isset($_SESSION['user'])) {
         <?php
             if ($user instanceof User) {
                 echo '<div id="logo"><a href="' . $path . '/">PUBLIEZ VOS ACTUS</a></div>';
-                echo '<div id="links">' . $user->getNom() . ' - <a href="' . $path . 'backoffice/list.php?class=actu">admin</a></div>';
+                echo '<div id="links">' . $user->getNom() . ' - <a href="' . $path . 'backoffice/list.php?class=' . $defaultClass . '">backoffice</a></div>';
             } else {
                 echo '<div id="logo"><a href="' . $path . '/">PUBLIEZ VOS ACTUS</a></div>';
                 echo '<div id="links"><a href="' . $path . 'signin.php">inscription</a> - <a href="' . $path . 'backoffice/login.php">connexion</a></div>';

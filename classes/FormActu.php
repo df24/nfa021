@@ -86,6 +86,9 @@ class FormActu extends FormAbstract
                $this->addError('datePublicationDebut', 'Veuillez saisir une date de début au format jj/mm/aaaa');
                return false;
             }
+        } else {
+            $this->addError('datePublicationDebut', 'Veuillez saisir une date de début de publication');
+            return false;
         }
 
         if ($data['datePublicationFin'] != '') {
@@ -93,6 +96,9 @@ class FormActu extends FormAbstract
                $this->addError('datePublicationFin', 'Veuillez saisir une date de fin au format jj/mm/aaaa');
                return false;
             }
+        } else {
+            $this->addError('datePublicationFin', 'Veuillez saisir une date de fin de publication');
+            return false;
         }
 
         if ($data['ordre'] != '') {
