@@ -1,44 +1,27 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" media="all" href="../css/styles.css" />
-  <link href="http://fonts.googleapis.com/css?family=Open+Sans" media="all" rel="stylesheet" type="text/css" >
-  <meta charset="UTF-8">
-  <title>Publiez vos actus !</title>
-</head>
-<body>
-    <header>
-        <a href="../inscription.php">inscription</a> - <a href="login.php">connexion</a>
-    </header>
-    <div id="main">
 <?php
-include_once('../classes/User.php');
-include_once('../classes/Db.php');
-$db = new Db();
-session_start();
-if (isset($_SESSION['user'])) {
-    $user = $_SESSION['user'];
-} else {
-    $user = false;
-}
+$path = '../';
+include_once('../header.php');
 
-if (!$user) {
+echo '<div class="center">';
+
+echo '<section>';
+
+if (!$user instanceof User) {
 
     if (!empty($_POST) && $_POST['login'] != '' && $_POST['pwd'] != '') {
 
-        $login = mysql_real_escape_string($_POST['login']);
-        $pwd   = mysql_real_escape_string($_POST['pwd']);
+        $login = mysqli_real_escape_string($db->getLink(), $_POST['login']);
+        $pwd   = mysqli_real_escape_string($db->getLink(), $_POST['pwd']);
 
         // connexion
-        $sql = 'SELECT nom, email, actif FROM user WHERE email=\'' . $login . '\' AND pwd=\'' . $pwd . '\' AND actif=\'oui\'';
+        $sql = 'SELECT iduser, nom, email, actif FROM user WHERE email=\'' . $login . '\' AND pwd=\'' . $pwd . '\' AND actif=\'oui\'';
         $userRow = $db->getRow($sql);
         if (!is_null($userRow)) {
-
+            
             $user = new User($userRow);
             $_SESSION['user'] = $user;
 
-            header('Location: back_actu_list.php');
+            header('Location: /');
             exit;
 
         } else {
@@ -48,6 +31,7 @@ if (!$user) {
     } else {
 
         echo <<<HTML
+        <p>Connectez-vous pour publier vos actus :</p>
         <form method="POST" id="login">
             <label for="login">Nom d'utilisateur</label>
             <input name="login" type="text">
@@ -55,7 +39,7 @@ if (!$user) {
             <label for="pwd">Mot de passe</label>
             <input name="pwd" type="password">
         <br>
-            <input type="submit" value="CONNEXION">
+            <input class="bouton" type="submit" value="CONNEXION">
         </form>
 HTML;
 
@@ -66,5 +50,9 @@ HTML;
     echo 'Déjà connecté !';
 
 }
+
+echo '</section>';
+
+echo '</div>';
 
 include_once('../footer.php');

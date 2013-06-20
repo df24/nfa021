@@ -1,0 +1,48 @@
+/* Denis Fohl - NFA021 */
+table {
+    margin-top: 20px;
+}
+table, th, tr, td {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #aaa;
+    font-size: 0.8em;
+    padding: 3px 5px;
+}
+
+th {
+    font-size: 0.7em;
+    text-transform: uppercase;
+}
+
+ul, li {
+    margin:0;
+    padding: 0;
+}
+li {
+    display:inline-block;
+    list-style-type: none;
+    padding: 5px 15px;
+    background-color: #f1fec5;
+    border:1px solid #ccc;
+    color: #333;
+}
+li:hover, li:active, li:focus, li.active {
+    background-color: #8FC000;
+    color:#fff;
+}
+li, li a {
+    font-size: 0.9em;
+    text-align: left;
+}
+section {
+    margin-top:30px;
+    display: block;
+}
+label {
+    width: 250px;
+    margin-right: 10px;
+    vertical-align: top;
+}

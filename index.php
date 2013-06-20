@@ -7,27 +7,28 @@ echo '<div class="center">';
 echo '<section>';
 
 $params = null;
-$user = null;
+$publisher = null;
 if (array_key_exists('iduser', $_GET)) {
     // le transtypage en int protège contre les injections de string
     $params['iduser'] = (int) substr($_GET['iduser'], 1);
     $sql = 'SELECT * FROM user WHERE iduser=' . $params['iduser'];
     $userRow = $db->getRow($sql);
     if (!is_null($userRow)) {
-        $user = new User($userRow);
+        $publisher = new User($userRow);
     }
 }
 /*
  * récupération des actus, filtre sur l'utilisateur si iduser dans la requête
  */
+$params['etat'] = 'valid';
 $actuCollection = ActuCollection::get($db, $params);
 
 if(count($actuCollection) == 0) {
     echo 'Pas d\'actualités pour le moment.';
 } else {
     echo '<p class="sectionTitre">Dernières actualités';
-    if (!is_null($user)) {
-        echo ' de ' . $user->getNom();
+    if (!is_null($publisher)) {
+        echo ' de ' . $publisher->getNom();
     }
     echo '</p>';
     foreach ($actuCollection as $actu) {
@@ -37,23 +38,31 @@ if(count($actuCollection) == 0) {
         if (!is_null($actu->getContenu())) {
             echo '<p class="actuLink"><a class="fancybox" href="/actuDetail.php?idactu=' . $actu->getIdactu() . '">en savoir plus</a>';
         }
+        if (!is_null($actu->getCommentaires($db))) {
+            echo '<p class="actuLink"><a class="fancybox" href="/commentaireDetail.php?idactu=' . $actu->getIdactu() . '">lire les commentaires</a>';
+        }
+        if ($user instanceof User) {
+            echo '<p class="actuLink"><a href="/actuCommentaire.php?class=Commentaire&idactu=' . $actu->getIdactu() . '">ajouter un commentaire</a>';
+        }
         echo '</article>';
     }
 }
 
 echo '</section>';
 
-echo <<<HTML
-    <aside>
-        <ol>
-            <li>Créez votre compte</li>
-            <li>Obtenez votre URL</li>
-            <li>Publiez vos actualités</li>
-            <li>Partagez !!!</li>
-        </ol>
-        <a class="bouton">Inscrivez-vous</a>
-    </aside>
+if (!($user instanceof User)) {
+    echo <<<HTML
+        <aside>
+            <ol>
+                <li>Créez votre compte</li>
+                <li>Obtenez votre URL</li>
+                <li>Publiez vos actualités</li>
+                <li>Partagez !!!</li>
+            </ol>
+            <a class="bouton" href="signin.php">Inscrivez-vous</a>
+        </aside>
 HTML;
+}
 
 echo '</div>';
 

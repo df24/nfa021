@@ -7,37 +7,137 @@ class Actu
 
     protected $idactu;
     protected $titre;
-    protected $accroche;
     protected $contenu;
     protected $datePublicationDebut;
     protected $datePublicationFin;
     protected $dateCreation;
     protected $ordre;
     protected $etat;
-    protected $visibilite;
     protected $idactuRubrique;
     protected $iduser;
-    protected $rubrique;
+    protected $rubrique = 'toLoad';
     protected $user = 'toLoad'; // gestion du lazy loading de l'objet user dans l'objet actu
 
+    /*******************************************************************************************************************
+     * méthodes métier
+     */
     public function __construct(array $values = array())
     {
 
         foreach ($values as $key => $value) {
             $method = 'set' . ucfirst($key);
-            $this->$method($value);
+            if (method_exists($this, $method))
+                $this->$method($value);
         }
 
     }
+
+    public function toHtmlTd(Db $db)
+    {
+
+        $dateDebut = $dateFin = $dateCreation = null;
+
+        if (!is_null($this->getDatePublicationDebut()))
+            $dateDebut = $this->getDatePublicationDebut()->format('d/m/Y');
+
+        if (!is_null($this->getDatePublicationFin()))
+            $dateFin = $this->getDatePublicationFin()->format('d/m/Y');
+
+        if (!is_null($this->getDateCreation()))
+            $dateCreation = $this->getDateCreation()->format('d/m/Y');
+
+        return '<td>' . Util::crop($this->getTitre(), 100) . '</td>'
+             . '<td>' . $dateDebut . '</td>'
+             . '<td>' . $dateFin . '</td>'
+             . '<td>' . $dateCreation . '</td>'
+             . '<td>' . $this->getOrdre() . '</td>'
+             . '<td>' . $this->getEtat() . '</td>'
+             . '<td>' . $this->getRubrique($db)->getLibelle() . '</td>';
+
+    }
+
+    public function getCommentaires(Db $db)
+    {
+        $commentairesLst = CommentaireCollection::get($db, array('idactu' => $this->getId()));
+        var_dump($commentairesLst); exit;
+        return null;
+    }
+
+    public function save($db)
+    {
+
+        $data = array(
+            'titre'                 => $this->getTitre(),
+            'contenu'               => $this->getContenu(),
+            'ordre'                 => $this->getOrdre(),
+            'datePublicationDebut'  => null,
+            'datePublicationFin'    => null,
+            'etat'                  => $this->getEtat(),
+            'idactuRubrique'        => $this->getIdactuRubrique(),
+            'iduser'                => $this->getIduser()
+        );
+
+        if (!is_null($this->getDatePublicationDebut()))
+            $data['datePublicationDebut'] = $this->getDatePublicationDebut()->format('Y-m-d');
+
+        if (!is_null($this->getDatePublicationFin()))
+            $data['datePublicationFin'] = $this->getDatePublicationFin()->format('Y-m-d');
+
+        if (!is_null($this->getIdactu())) {
+            $data['idactu'] = $this->getIdactu();
+        }
+
+
+        if (array_key_exists('idactu', $data)) {
+
+            $sql = 'UPDATE actu SET ';
+            $values = array();
+            foreach ($data as $key => $val) {
+                if(!is_null($val) && $val != '')
+                    $values[] = $key . " = '$val' ";
+            }
+            $sql .= implode(', ', $values);
+            $sql .= ' WHERE idactu=' . (int) $data['idactu'];
+
+            return $db->query($sql);
+
+        } else {
+
+            $dataString = implode('\',\'', $data);
+            $dataString = str_replace("''", 'NULL', $dataString);
+            $sql = 'INSERT INTO actu (titre, contenu, ordre, datePublicationDebut, datePublicationFin, etat, idactuRubrique, iduser) VALUES (\'' . $dataString . '\')';
+            $result = $db->query($sql);
+
+            if($result === true)
+                return mysqli_insert_id($db->getLink());
+            else
+                return array($db->getLink()->errno => $db->getLink()->error);
+
+        }
+
+    }
+
+    /*******************************************************************************************************************
+     * getters et setters
+     */
 
     public function getIdactu()
     {
         return $this->idactu;
     }
 
+    public function getId()
+    {
+        return $this->getIdactu();
+    }
+
     public function setIdactu($idactu)
     {
-        $this->idactu = $idactu;
+        $this->idactu = (int) $idactu;
+    }
+
+    public function setId($id) {
+        $this->setIdactu($id);
     }
 
     public function getTitre()
@@ -57,6 +157,9 @@ class Actu
 
     public function setAccroche($accroche)
     {
+        if ($accroche == '')
+            return null;
+
         $this->accroche = $accroche;
     }
 
@@ -67,6 +170,9 @@ class Actu
 
     public function setContenu($contenu)
     {
+        if ($contenu == '')
+            return null;
+
         $this->contenu = $contenu;
     }
 
@@ -77,10 +183,14 @@ class Actu
 
     public function setDatePublicationDebut($datePublicationDebut)
     {
-        if (!$datePublicationDebut instanceof DateTime) {
-            $datePublicationDebut = new DateTime($datePublicationDebut);
+        if ($datePublicationDebut == '')
+            return null;
+
+        if (!$datePublicationDebut instanceof DateTime && $datePublicationDebut != '') {
+            $datePublicationDebut = new DateTime(Util::ToMysqlDate($datePublicationDebut) . '00:00');
         }
         $this->datePublicationDebut = $datePublicationDebut;
+
     }
 
     public function getDatePublicationFin()
@@ -90,10 +200,15 @@ class Actu
 
     public function setDatePublicationFin($datePublicationFin)
     {
+
+        if ($datePublicationFin == '')
+            return null;
+
         if (!$datePublicationFin instanceof DateTime) {
-            $datePublicationFin = new DateTime($datePublicationFin);
+            $datePublicationFin = new DateTime(Util::ToMysqlDate($datePublicationFin) . '23:59');
         }
         $this->datePublicationFin = $datePublicationFin;
+
     }
 
     public function getDateCreation()
@@ -104,7 +219,7 @@ class Actu
     public function setDateCreation($dateCreation)
     {
         if (!$dateCreation instanceof DateTime) {
-            $dateCreation = new DateTime($dateCreation);
+            $dateCreation = new DateTime(Util::ToMysqlDate($dateCreation));
         }
         $this->dateCreation = $dateCreation;
     }
@@ -116,6 +231,9 @@ class Actu
 
     public function setOrdre($ordre)
     {
+        if($ordre == null)
+            return null;
+
         $this->ordre = $ordre;
     }
 
@@ -126,17 +244,10 @@ class Actu
 
     public function setEtat($etat)
     {
+        if ($etat == null)
+            return null;
+
         $this->etat = $etat;
-    }
-
-    public function getVisibilite()
-    {
-        return $this->visibilite;
-    }
-
-    public function setVisibilite($visibilite)
-    {
-        $this->visibilite = $visibilite;
     }
 
     public function getIdactuRubrique()
@@ -159,8 +270,15 @@ class Actu
         $this->iduser = $iduser;
     }
 
-    public function getRubrique()
+    public function getRubrique(Db $db)
     {
+        // lazy loading de l'objet user dans l'objet actu
+        if ($this->rubrique == 'toLoad') {
+            $sql = 'SELECT libelle FROM actuRubrique WHERE idactuRubrique =' . $this->getIdactuRubrique();
+            $row = $db->getRow($sql);
+            $this->rubrique = new ActuRubrique($row);
+        }
+
         return $this->rubrique;
     }
 

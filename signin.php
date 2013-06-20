@@ -101,7 +101,7 @@ HTML;
     }
     echo <<<HTML
             <br>
-                <input type="submit" value="ENREGISTRER">
+                <input class="bouton" type="submit" value="ENREGISTRER">
             </form>
 HTML;
 
