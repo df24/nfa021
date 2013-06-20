@@ -26,6 +26,7 @@ if (array_key_exists('idActuRubrique', $_GET))
 $actuCollection = ActuCollection::get($db, $params);
 
 if(count($actuCollection) == 0) {
+    echo '<p>Cliquez sur "backoffice" en haut à droite</p>';
     echo 'Pas d\'actualités pour le moment.';
 } else {
     echo '<p class="sectionTitre">Dernières actualités';

@@ -64,7 +64,8 @@ if (count($collection) != 0) {
         echo '<tr>';
         echo $object->toHtmlTd($db);
         if ($user->getEmail() != 'admin@df-info.com') {
-            echo '<td><a href="row.php?class=' . $class . '&id=' . $object->getId() . '"><img src="../img/edit.png"></a></td><td><a href="del.php?class=' . $class . '&id=' . $object->getId() . '"><img class="btnDel" src="../img/del.png"></a></td>';
+            echo '<td><a href="row.php?class=' . $class . '&id=' . $object->getId() . '"><img src="../img/edit.png"></a></td>';
+            echo '<td><a href="del.php?class=' . $class . '&id=' . $object->getId() . '"><img class="btnDel" src="../img/del.png"></a></td>';
         }
         echo '</tr>';
     }

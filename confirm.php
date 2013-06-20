@@ -12,7 +12,7 @@ $sql = "UPDATE user SET actif='oui' WHERE iduser=" . $idUser;
 $result = $db->query($sql);
 
 $id = mysqli_insert_id($db->getLink());
-$sql = "INSERT (libelle, iduser) INTO actuRubrique VALUES('mes actus', '$id')";
+$sql = "INSERT INTO actuRubrique (libelle, iduser) VALUES('mes actus', '$idUser')";
 $result = $db->query($sql);
 
 if (!is_array($result))
@@ -26,6 +26,7 @@ else {
     echo '<section>';
     echo '<p class="error">Validation impossible</p>';
     echo '<p class="error">ERREUR MYSQL CODE(S) : ' . implode(', ', array_keys ($result)) . '</p>';
+    echo '<p class="error">' .$sql . '</p>';
 
     echo '</section>';
 

@@ -18,7 +18,7 @@ class LogCollection
         $where[] = 'l.iduser = u.iduser';
 
         if (is_array($params)) {
-            if (array_key_exists('iduser', $params) && $params['iduser'] != '30') {
+            if (array_key_exists('iduser', $params) && $params['iduser'] != '1') {
                     $where[] = 'a.iduser = ' . (int) $params['iduser'];
             }
         }
@@ -30,6 +30,7 @@ class LogCollection
         } else {
             $sql .= ' ORDER BY l.stamp DESC';
         }
+var_dump($sql);
         $rs = $db->getRowset($sql);
         foreach ($rs as $row) {
             $result[] = new Log($row);

@@ -24,7 +24,7 @@ if ($user instanceof User) {
          */
         if ($_POST['nom'] != '') {
             if (!preg_match('/^[[:alpha:]]+$/', $_POST['nom'])) {
-                $error['nom'] = 'Format incorrect pour le nom';
+                $error['nom'] = 'Format incorrect pour le nom (uniquement des lettres, pas d\'espace)';
             }
             $data['nom'] = mysqli_real_escape_string($db->getLink(), $_POST['nom']);
         } else {
@@ -77,7 +77,7 @@ if ($user instanceof User) {
     <p>Créez votre compte en remplissant le formulaire ci-dessous.</p>
     <p>Vous recevrez un email vous permettant de valider votre inscription.</p>
             <form method="POST" id="signin">
-                <label for="nom">votre nom</label>
+                <label for="nom">votre pseudo</label>
                 <input name="nom" type="text" value="{$data['nom']}">
 HTML;
     if (array_key_exists('nom', $error)) {
