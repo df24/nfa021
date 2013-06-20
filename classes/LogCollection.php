@@ -30,7 +30,6 @@ class LogCollection
         } else {
             $sql .= ' ORDER BY l.stamp DESC';
         }
-var_dump($sql);
         $rs = $db->getRowset($sql);
         foreach ($rs as $row) {
             $result[] = new Log($row);
