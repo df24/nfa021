@@ -15,7 +15,7 @@ echo '<div class="center">';
 
 echo <<<HTML
     <aside>
-        <ul>
+        <ul class="navigation">
             <li class="{$selected['Actu']}"><a href="list.php?class=Actu">Gérer les actus</a></li>
             <li class="{$selected['Commentaire']}"><a href="list.php?class=Commentaire">Gérer les commentaires</a></li>
             <li class="{$selected['ActuRubrique']}"><a href="list.php?class=ActuRubrique">Gérer les rubriques</a></li>
@@ -30,7 +30,8 @@ $className = $class . 'Collection';
 
 $collection = $className::get($db, array('iduser' => $user->getIdUser()));
 
-echo '<a class="bouton" href="row.php?class=' . $class . '">' . $className::TXT_ADD . '</a>';
+if ($class != 'Commentaire')
+    echo '<a class="bouton" href="row.php?class=' . $class . '">' . $className::TXT_ADD . '</a>';
 
 if (count($collection) != 0) {
 

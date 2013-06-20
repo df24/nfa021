@@ -38,7 +38,7 @@ if(count($actuCollection) == 0) {
         if (!is_null($actu->getContenu())) {
             echo '<p class="actuLink"><a class="fancybox" href="/actuDetail.php?idactu=' . $actu->getIdactu() . '">en savoir plus</a>';
         }
-        if (!is_null($actu->getCommentaires($db))) {
+        if (count($actu->getCommentaires($db)) != 0) {
             echo '<p class="actuLink"><a class="fancybox" href="/commentaireDetail.php?idactu=' . $actu->getIdactu() . '">lire les commentaires</a>';
         }
         if ($user instanceof User) {

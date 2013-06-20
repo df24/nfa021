@@ -1,9 +1,13 @@
 <?php
 ob_start();
-$path = '../';
-include_once('../header.php');
-include_once('auth.php');
-include_once('getParams.php');
+$path = null;
+include_once('header.php');
+include_once('backoffice/auth.php');
+include_once('backoffice/getParams.php');
+if (array_key_exists('idactu', $_GET))
+    $idactu = (int) $_GET['idactu'];
+else
+    throw new Exception('paramètre idActu manquant');
 
 echo '<div class="center">';
 
@@ -23,11 +27,12 @@ echo '<section>';
                 $row->setId($id);
 
             $row->setIdUser($user->getIdUser());
+            $row->setIdActu($idactu);
 //var_dump($row);
 //exit;
             $row->save($db);
 
-            header('Location: list.php?class=' . $class);
+            header('Location: index.php');
             exit;
 
         } else {

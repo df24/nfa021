@@ -58,9 +58,7 @@ class Actu
 
     public function getCommentaires(Db $db)
     {
-        $commentairesLst = CommentaireCollection::get($db, array('idactu' => $this->getId()));
-        var_dump($commentairesLst); exit;
-        return null;
+        return CommentaireCollection::get($db, array('idactu' => $this->getId()));
     }
 
     public function save($db)
