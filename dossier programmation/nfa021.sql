@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mar 21 Mai 2013 à 11:49
+-- Généré le: Jeu 20 Juin 2013 à 15:43
 -- Version du serveur: 5.5.31-0ubuntu0.13.04.1
--- Version de PHP: 5.4.9-4ubuntu2
+-- Version de PHP: 5.4.9-4ubuntu2.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -32,27 +32,15 @@ CREATE TABLE IF NOT EXISTS `actu` (
   `contenu` text,
   `datePublicationDebut` date DEFAULT NULL,
   `datePublicationFin` date DEFAULT NULL,
-  `dateCreation` datetime NOT NULL,
+  `dateCreation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ordre` int(11) DEFAULT NULL,
-  `etat` enum('brouillon','valid') DEFAULT NULL,
-  `visibilite` enum('publique','privee') DEFAULT NULL,
+  `etat` enum('brouillon','valid') DEFAULT 'brouillon',
   `idactuRubrique` int(10) unsigned NOT NULL,
   `iduser` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idactu`),
   KEY `fk_actu_actuRubrique_idx` (`idactuRubrique`),
   KEY `fk_actu_user1_idx` (`iduser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
-
---
--- Contenu de la table `actu`
---
-
-INSERT INTO `actu` (`idactu`, `titre`, `contenu`, `datePublicationDebut`, `datePublicationFin`, `dateCreation`, `ordre`, `etat`, `visibilite`, `idactuRubrique`, `iduser`) VALUES
-(1, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', 'essai de contenu nu nu', NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 1),
-(2, 'titre test actu user 1', NULL, NULL, NULL, '2013-05-14 00:00:00', NULL, NULL, NULL, 1, 1),
-(4, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', NULL, NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 2),
-(5, 'Cacoo est un outil ergonomique de dessin en ligne qui vous permet de créer tout un panel de diagrammes', NULL, NULL, NULL, '2013-05-11 00:00:00', NULL, NULL, NULL, 1, 3),
-(6, 'titre test actu user 1', NULL, NULL, NULL, '2013-05-10 00:00:00', NULL, NULL, NULL, 1, 3);
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 -- --------------------------------------------------------
 
@@ -66,14 +54,39 @@ CREATE TABLE IF NOT EXISTS `actuRubrique` (
   `iduser` int(10) unsigned NOT NULL,
   PRIMARY KEY (`idactuRubrique`),
   KEY `fk_actuRubrique_user1_idx` (`iduser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
+-- --------------------------------------------------------
 
 --
--- Contenu de la table `actuRubrique`
+-- Structure de la table `commentaire`
 --
 
-INSERT INTO `actuRubrique` (`idactuRubrique`, `libelle`, `iduser`) VALUES
-(1, 'rubrique défaut', 1);
+CREATE TABLE IF NOT EXISTS `commentaire` (
+  `idcommentaire` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `commentaire` varchar(500) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `idactu` int(10) unsigned NOT NULL,
+  `iduser` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idcommentaire`),
+  KEY `fk_commentaire_actu_idx` (`idactu`),
+  KEY `fk_commentaire_user1_idx` (`iduser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `log`
+--
+
+CREATE TABLE IF NOT EXISTS `log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` varchar(45) NOT NULL,
+  `iduser` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_log_user1_idx` (`iduser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -87,17 +100,16 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) NOT NULL,
   `pwd` varchar(8) NOT NULL,
   `actif` enum('non','oui') NOT NULL,
-  PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+  PRIMARY KEY (`iduser`),
+  UNIQUE KEY `mailUnique` (`email`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=31 ;
 
 --
 -- Contenu de la table `user`
 --
 
 INSERT INTO `user` (`iduser`, `nom`, `email`, `pwd`, `actif`) VALUES
-(1, 'jfk', 'jfk@toto.com', 'jfk', 'oui'),
-(2, 'toto', 'toto@toto.com', 'toto', 'non'),
-(3, 'titi', 'titi@toto.com', 'titi', 'oui');
+(1, 'ADMINISTRATEUR', 'admin@df-info.com', 'admin', 'oui');
 
 --
 -- Contraintes pour les tables exportées
@@ -107,14 +119,27 @@ INSERT INTO `user` (`iduser`, `nom`, `email`, `pwd`, `actif`) VALUES
 -- Contraintes pour la table `actu`
 --
 ALTER TABLE `actu`
-  ADD CONSTRAINT `fk_actu_actuRubrique` FOREIGN KEY (`idactuRubrique`) REFERENCES `actuRubrique` (`idactuRubrique`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `actu_ibfk_1` FOREIGN KEY (`idactuRubrique`) REFERENCES `actuRubrique` (`idactuRubrique`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_actu_user1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `actuRubrique`
 --
 ALTER TABLE `actuRubrique`
-  ADD CONSTRAINT `fk_actuRubrique_user1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `actuRubrique_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD CONSTRAINT `commentaire_ibfk_3` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `commentaire_ibfk_1` FOREIGN KEY (`idactu`) REFERENCES `actu` (`idactu`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `log`
+--
+ALTER TABLE `log`
+  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`iduser`) REFERENCES `user` (`iduser`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

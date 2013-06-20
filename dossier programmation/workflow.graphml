@@ -20,11 +20,9 @@
           <y:Geometry height="163.2" width="192.79999999999995" x="-264.25" y="-93.60000000000002"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="115.75" modelName="custom" textColor="#000000" visible="true" width="137.44140625" x="27.679296874999977" y="23.725000000000023">index.php
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="87.8125" modelName="custom" textColor="#000000" visible="true" width="100.275390625" x="46.26230468749998" y="37.693749999999994">index.php
 
-- liste des actus 
-(publiques ou privées 
-si parametre iduser)
+- liste des actus
 
 - lien inscription
 - lien connexion<y:LabelModel>
@@ -43,7 +41,7 @@ si parametre iduser)
           <y:Geometry height="76.80000000000001" width="233.5999999999999" x="276.20000000000005" y="-50.400000000000034"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="213.173828125" x="10.213085937499955" y="15.446875000000034">login.php
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="213.173828125" x="10.213085937499955" y="15.446875000000006">login.php
 - saisie identifiant
 - authentification base de données<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -61,7 +59,7 @@ si parametre iduser)
           <y:Geometry height="76.80000000000001" width="164.79999999999995" x="26.000000000000057" y="-193.60000000000008"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="73.84375" modelName="custom" textColor="#000000" visible="true" width="137.330078125" x="13.734960937499977" y="1.478125000000034">signin.php
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="73.84375" modelName="custom" textColor="#000000" visible="true" width="137.330078125" x="13.734960937499977" y="1.4781250000000057">signin.php
 - formulaire user
 - verification données
 - enregistrement bd
@@ -81,7 +79,7 @@ si parametre iduser)
           <y:Geometry height="76.80000000000001" width="219.19999999999982" x="283.4000000000001" y="-193.60000000000008"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="145.802734375" x="36.69863281249991" y="15.446875000000034">valid.php
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="145.802734375" x="36.69863281249991" y="15.446875000000006">confirm.php
 update user à actif=oui
 lien vers login.php<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
@@ -97,12 +95,12 @@ lien vers login.php<y:LabelModel>
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
           <y:Geometry height="97.80000000000001" width="393.5999999999999" x="116.20000000000005" y="106.19999999999993"/>
-          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:Fill color="#E8EEF7" color2="#993366" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="59.875" modelName="custom" textColor="#000000" visible="true" width="364.87890625" x="14.360546874999955" y="18.962499999999977">back_actu_list.php
-- liste des actus de l'utilisateur
-- liens vers ajout / modification / suppression actu
-- liens vers ajout / modification / suppression rubriques actu<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="59.875" modelName="custom" textColor="#000000" visible="true" width="382.5390625" x="5.5304687499999545" y="18.962500000000006">list.php?class=className
+- liste des objets de la classe demandée
+- liens vers ajout / modification / suppression classe demandée
+- menu accès aux autres classes<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -115,10 +113,12 @@ lien vers login.php<y:LabelModel>
     <node id="n5">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="134.5999999999999" x="-198.5999999999999" y="258.19999999999993"/>
-          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:Geometry height="76.80000000000001" width="219.19999999999982" x="-74.94999999999982" y="298.04999999999984"/>
+          <y:Fill color="#E8EEF7" color2="#993366" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="120.021484375" x="7.2892578124999545" y="10.415624999999977">back_actu_add.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="160.591796875" x="29.30410156249991" y="15.446874999999977">del.php?class= et id=
+delete en base de donnée
+redirect list<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -131,10 +131,12 @@ lien vers login.php<y:LabelModel>
     <node id="n6">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="134.5999999999999" x="-34.0" y="258.19999999999993"/>
-          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:Geometry height="76.80000000000001" width="219.19999999999982" x="238.10000000000036" y="298.04999999999984"/>
+          <y:Fill color="#E8EEF7" color2="#993366" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="120.47265625" x="7.0636718749999545" y="10.415624999999977">back_actu_edit.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="45.90625" modelName="custom" textColor="#000000" visible="true" width="142.685546875" x="38.25722656249991" y="15.446874999999977">row.php?class= et id=
+creation ou mise à jour
+redirect vers list<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -147,10 +149,10 @@ lien vers login.php<y:LabelModel>
     <node id="n7">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="134.5999999999999" x="130.5999999999999" y="258.19999999999993"/>
-          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:Geometry height="65.80000000000001" width="164.79999999999995" x="-250.25" y="122.19999999999993"/>
+          <y:Fill color="#E8EEF7" color2="#993366" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="115.767578125" x="9.416210937499955" y="10.415624999999977">back_actu_del.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="68.599609375" x="48.10019531249998" y="23.915625000000006">logout.php<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -163,10 +165,10 @@ lien vers login.php<y:LabelModel>
     <node id="n8">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="150.5999999999999" x="304.8000000000002" y="258.19999999999993"/>
+          <y:Geometry height="76.80000000000001" width="164.79999999999995" x="-201.9999999999999" y="-313.8000000000002"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="144.7890625" x="2.9054687499999545" y="10.415624999999977">back_rubrique_add.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="138.712890625" x="13.043554687499977" y="29.415624999999977">actuCommentaire.php<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -179,10 +181,10 @@ lien vers login.php<y:LabelModel>
     <node id="n9">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="156.5999999999999" x="479.00000000000045" y="258.19999999999993"/>
+          <y:Geometry height="76.80000000000001" width="164.79999999999995" x="-435.99999999999983" y="-313.80000000000024"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="145.240234375" x="5.6798828124999545" y="10.415624999999977">back_rubrique_edit.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="92.265625" x="36.26718749999998" y="29.415625000000034">actuDetail.php<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -195,10 +197,11 @@ lien vers login.php<y:LabelModel>
     <node id="n10">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="38.80000000000001" width="150.5999999999999" x="660.6000000000004" y="258.19999999999993"/>
-          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:Geometry height="76.80000000000001" width="219.19999999999982" x="591.2000000000007" y="116.69999999999993"/>
+          <y:Fill color="#E8EEF7" color2="#993366" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" modelName="custom" textColor="#000000" visible="true" width="140.53515625" x="5.0324218749999545" y="10.415624999999977">back_rubrique_del.php<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" modelName="custom" textColor="#000000" visible="true" width="79.1875" x="70.00624999999991" y="22.431250000000006">activate.php
+pour admin<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -249,7 +252,6 @@ lien vers login.php<y:LabelModel>
       </data>
     </edge>
     <edge id="e4" source="n1" target="n4">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
@@ -281,7 +283,7 @@ lien vers login.php<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e7" source="n4" target="n7">
+    <edge id="e7" source="n1" target="n0">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -292,7 +294,7 @@ lien vers login.php<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e8" source="n4" target="n8">
+    <edge id="e8" source="n4" target="n7">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -303,7 +305,7 @@ lien vers login.php<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e9" source="n4" target="n9">
+    <edge id="e9" source="n7" target="n0">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
@@ -314,7 +316,29 @@ lien vers login.php<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e10" source="n4" target="n10">
+    <edge id="e10" source="n0" target="n8">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n0" target="n9">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n4" target="n10">
       <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
